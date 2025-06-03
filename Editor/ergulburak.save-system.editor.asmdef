@@ -1,0 +1,14 @@
+﻿{
+  "name": "ergulburak.save-system.editor",
+  "rootNamespace": "ergulburak",
+  "references": ["ergulburak.save-system"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

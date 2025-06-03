@@ -1,0 +1,18 @@
+﻿{
+  "name": "com.ergulburak.save-system",
+  "version": "0.0.1",
+  "displayName": "Save System",
+  "description": "A flexible and extensible save/load system for Unity projects.",
+  "unity": "2022.3",
+  "unityRelease": "57f1",
+  "documentationUrl": "https://github.com/ergulburak/unity-save-system",
+  "changelogUrl": "https://github.com/ergulburak/unity-save-system/activity",
+  "licensesUrl": "https://github.com/ergulburak/unity-save-system/blob/main/LICENSE",
+  "keywords": ["save", "system"],
+  "author": {
+    "name": "Burak Ergul",
+    "email": "ergulburak@proton.me",
+    "url": "https://ergulburak.github.io"
+  },
+  "type": "commonjs"
+}
