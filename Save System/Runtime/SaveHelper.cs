@@ -8,6 +8,7 @@ namespace ergulburak.SaveSystem
     public static class SaveHelper
     {
         private static readonly Queue<(ISaveable saveable, Action callback)> _saveQueue = new();
+        private static readonly Queue<(ISaveable saveable, Action callback)> _checkQueue = new();
         private static bool _isSaving = false;
         public static bool Initialized;
         public static event Action<int> OnInitializeComplete;
@@ -46,7 +47,18 @@ namespace ergulburak.SaveSystem
 
         public static void SaveData(this ISaveable saveable, Action onCompleteCallback = null)
         {
-            _saveQueue.Enqueue((saveable, onCompleteCallback));
+            _checkQueue.Clear();
+            foreach (var item in _saveQueue)
+            {
+                if (item.saveable.GetType() != saveable.GetType())
+                    _checkQueue.Enqueue(item);
+            }
+
+            _checkQueue.Enqueue((saveable, onCompleteCallback));
+            _saveQueue.Clear();
+            foreach (var item in _checkQueue)
+                _saveQueue.Enqueue(item);
+
             TryStartNextSave();
         }
 
