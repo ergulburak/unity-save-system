@@ -12,7 +12,7 @@ This package provides a modular, slot-based save system for Unity projects. It u
 To install via **Unity Package Manager**, add the following line to your `Packages/manifest.json`:
 
 ```json
-"com.ergulburak.savesystem": "https://github.com/ergulburak/unity-save-system.git?path=/SaveSystem"
+"com.ergulburak.savesystem": "https://github.com/ergulburak/unity-save-system.git?path=/Save%20System"
 ```
 
 > ⚠️ Make sure the package repository contains a valid `package.json` in the `SaveSystem/` folder.
