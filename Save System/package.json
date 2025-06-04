@@ -1,6 +1,6 @@
 ﻿{
   "name": "com.ergulburak.save-system",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "displayName": "Save System",
   "description": "A flexible and extensible save/load system for Unity projects.",
   "unity": "2022.3",
