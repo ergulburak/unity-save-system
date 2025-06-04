@@ -3,17 +3,9 @@
     using UnityEngine;
 
     [System.Serializable]
-    public class PlayerData : ISaveable
+    public class ExampleData : ISaveable
     {
-        public int health = 100;
-        public Vector3 position;
-    }
-
-    [System.Serializable]
-    public class GameSettings : ISaveable
-    {
-        public float volume = 1f;
-        public bool isFullScreen = true;
+        public int counter = 100;
     }
 
     public class ExampleSaveable : MonoBehaviour
@@ -43,23 +35,13 @@
 
             if (Input.GetKeyDown(KeyCode.L))
             {
-                var playerData = SaveHelper.GetData<PlayerData>();
-                if (playerData != null)
+                var exampleData = SaveHelper.GetData<ExampleData>();
+                if (exampleData != null)
                 {
-                    playerData.health--;
-                    Debug.Log(
-                        $"Loaded PlayerData from cache: Health={playerData.health}, Position={playerData.position}");
-                    playerData.SaveData();
+                    exampleData.counter--;
+                    Debug.Log($"Loaded ExampleData from cache: Counter={exampleData.counter}");
+                    exampleData.SaveData();
                 }
-
-                var settings = SaveHelper.GetData<GameSettings>();
-                if (settings != null)
-                {
-                    Debug.Log(
-                        $"Loaded GameSettings from cache: Volume={settings.volume}, FullScreen={settings.isFullScreen}");
-                }
-
-                settings.SaveData();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) SaveHelper.ChangeSaveSlot(1);

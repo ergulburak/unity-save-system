@@ -1,6 +1,6 @@
 ﻿{
   "name": "com.ergulburak.save-system",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "displayName": "Save System",
   "description": "A flexible and extensible save/load system for Unity projects.",
   "unity": "2022.3",
@@ -13,6 +13,5 @@
     "name": "Burak Ergul",
     "email": "ergulburak@proton.me",
     "url": "https://ergulburak.github.io"
-  },
-  "type": "commonjs"
+  }
 }

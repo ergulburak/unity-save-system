@@ -26,6 +26,11 @@ namespace ergulburak.SaveSystem
             }
         }
 
+        private void OnDestroy()
+        {
+            SaveHelper.DisposeQueue();
+        }
+
         private void Update()
         {
             while (actionQueue.TryDequeue(out var action))

@@ -1,4 +1,5 @@
 ﻿using static ergulburak.SaveSystem.SaveManager;
+using System.Collections.Generic;
 using System.Collections;
 using System;
 
@@ -6,6 +7,8 @@ namespace ergulburak.SaveSystem
 {
     public static class SaveHelper
     {
+        private static readonly Queue<(ISaveable saveable, Action callback)> _saveQueue = new();
+        private static bool _isSaving = false;
         public static bool Initialized;
         public static event Action<int> OnInitializeComplete;
 
@@ -30,6 +33,12 @@ namespace ergulburak.SaveSystem
             Enqueue(() => { OnInitializeComplete?.Invoke(Instance.currentSlotId); });
         }
 
+        public static void DisposeQueue()
+        {
+            _saveQueue.Clear();
+            _isSaving = false;
+        }
+
         public static T GetData<T>() where T : class, ISaveable
         {
             return SaveSystem.LoadFromCache<T>(Instance.GetCurrentSlotId());
@@ -37,7 +46,34 @@ namespace ergulburak.SaveSystem
 
         public static void SaveData(this ISaveable saveable, Action onCompleteCallback = null)
         {
-            Instance.StartCoroutine(SaveDataAsync(saveable, onCompleteCallback));
+            _saveQueue.Enqueue((saveable, onCompleteCallback));
+            TryStartNextSave();
+        }
+
+        private static void TryStartNextSave()
+        {
+            if (_isSaving || _saveQueue.Count == 0)
+                return;
+
+            var (saveable, callback) = _saveQueue.Dequeue();
+            Instance.StartCoroutine(SaveRoutine(saveable, callback));
+        }
+
+        private static IEnumerator SaveRoutine(ISaveable saveable, Action callback)
+        {
+            _isSaving = true;
+
+            var task = SaveSystem.SaveAsync(saveable, Instance.GetCurrentSlotId());
+            while (!task.IsCompleted) yield return null;
+
+            if (task.Exception != null)
+                $"Save failed for {saveable.GetType().Name}: {task.Exception}".DebugError();
+            else
+                callback?.Invoke();
+
+            _isSaving = false;
+
+            TryStartNextSave();
         }
 
         private static IEnumerator SaveDataAsync(ISaveable saveable, Action onCompleteCallback = null)
