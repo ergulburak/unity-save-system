@@ -23,19 +23,18 @@ To install via **Unity Package Manager**, add the following line to your `Packag
 
 ### 1. Initialization
 
-Call once during your game's boot sequence to load current save slot and data.
+To initialize the save system, **attach the `SaveManager` MonoBehaviour to a GameObject** in your first scene (usually your Bootstrap or Init scene). This will automatically trigger initialization.
 
-```csharp
-SaveHelper.Initialize();
-```
-
-You can listen for completion:
+You can track when initialization is complete using:
 
 ```csharp
 SaveHelper.OnInitializeComplete += slotId => {
     Debug.Log($"Save system initialized for slot: {slotId}");
 };
 ```
+
+You can also check `SaveHelper.Initialized` if you need a flag.
+
 
 ---
 
